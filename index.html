@@ -2,256 +2,205 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Service Notice: Final Settlement Required</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Service Notice | Final Settlement</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #0f172a;
             --accent: #e11d48;
-            --gold: #f59e0b;
-            --text-main: #1e293b;
-            --text-sub: #64748b;
+            --bg: #f8fafc;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Outfit', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
         body, html {
             height: 100%;
+            width: 100%;
+            overflow: hidden; /* Scroll lock */
             background-color: #f1f5f9;
-            overflow: hidden; /* Blocks background interaction */
         }
 
-        /* Premium Overlay */
-        #service-lock-overlay {
+        #payment-lock-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(20px); /* Modern Glass Effect */
-            z-index: 99999999;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(15px);
+            z-index: 9999999;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 10px; /* Small padding for mobile edges */
         }
 
-        /* Main Professional Container */
-        .premium-modal {
+        .professional-card {
             background: #ffffff;
             width: 100%;
-            max-width: 600px;
-            border-radius: 32px;
-            box-shadow: 0 40px 100px -20px rgba(0,0,0,0.15);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            overflow: hidden;
-            animation: modalPop 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            max-width: 500px;
+            /* Mobile par height adjust karne ke liye max-height */
+            max-height: 95vh; 
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto; /* Agar screen bohat choti ho to sirf card ke andar scroll ho */
+            animation: fadeIn 0.5s ease-out;
         }
 
-        @keyframes modalPop {
-            0% { opacity: 0; transform: scale(0.9) translateY(20px); }
-            100% { opacity: 1; transform: scale(1) translateY(0); }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Top Warning Strip */
-        .notification-strip {
+        .status-bar {
             background: #fff1f2;
-            padding: 15px;
-            text-align: center;
-            border-bottom: 1px solid #ffe4e6;
-            animation: warningPulse 3s infinite ease-in-out;
-        }
-
-        @keyframes warningPulse {
-            0%, 100% { background: #fff1f2; }
-            50% { background: #fee2e2; }
-        }
-
-        .notification-strip span {
-            color: var(--accent);
+            color: #be123c;
+            padding: 10px;
+            font-size: 10px;
             font-weight: 800;
-            font-size: 11px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        .main-content {
-            padding: 50px 40px;
             text-align: center;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            flex-shrink: 0;
         }
 
-        .service-icon {
-            font-size: 50px;
-            margin-bottom: 15px;
-            display: inline-block;
+        .content {
+            padding: 25px 20px;
+            text-align: center;
+            flex-grow: 1;
         }
+
+        .icon { font-size: 40px; margin-bottom: 10px; }
 
         h1 {
+            font-size: 22px;
             color: var(--primary);
-            font-size: 32px;
+            margin-bottom: 8px;
             font-weight: 800;
-            letter-spacing: -1px;
-            margin-bottom: 15px;
+            line-height: 1.2;
         }
 
-        .desc {
-            color: var(--text-sub);
-            font-size: 16px;
-            line-height: 1.6;
-            margin-bottom: 35px;
+        .sub-text {
+            color: #64748b;
+            font-size: 13px;
+            margin-bottom: 20px;
+            line-height: 1.4;
         }
 
-        /* High Level Account Box */
-        .account-highlight-card {
-            background: #fafafb;
-            border: 1.5px solid #f1f5f9;
-            border-radius: 24px;
-            padding: 30px;
-            margin-bottom: 30px;
-            text-align: left;
-            position: relative;
+        .account-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 20px;
         }
 
-        .account-highlight-card::after {
-            content: 'OFFICIAL INVOICE';
-            position: absolute;
-            top: -12px;
-            right: 25px;
-            background: var(--primary);
-            color: white;
-            padding: 4px 12px;
-            border-radius: 6px;
-            font-size: 10px;
-            font-weight: 600;
+        .amount {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--primary);
+            display: block;
+            margin-bottom: 10px;
         }
 
-        .amount-row {
-            border-bottom: 1px solid #e2e8f0;
-            padding-bottom: 15px;
-            margin-bottom: 15px;
-        }
-
-        .amount-row .label { font-size: 14px; color: var(--text-sub); }
-        .amount-row .val { font-size: 36px; font-weight: 800; color: var(--primary); float: right; margin-top: -10px;}
-
-        .info-row {
+        .detail-row {
             display: flex;
             justify-content: space-between;
-            padding: 8px 0;
-            font-size: 15px;
+            font-size: 13px;
+            margin: 5px 0;
+            padding-top: 5px;
+            border-top: 1px solid #f1f5f9;
         }
 
-        .info-row .label { color: var(--text-sub); }
-        .info-row .val { color: var(--primary); font-weight: 600; }
+        .label { color: #94a3b8; }
+        .val { color: var(--primary); font-weight: 700; }
 
-        .highlight-text {
-            color: #000;
-            font-weight: 800;
-            background: var(--gold);
-            padding: 2px 8px;
-            border-radius: 4px;
-        }
-
-        /* Professional Warning Note */
-        .dev-memo {
+        .memo-box {
             background: #fef2f2;
             border-left: 4px solid var(--accent);
-            padding: 20px;
+            padding: 12px;
             text-align: left;
-            border-radius: 12px;
+            border-radius: 0 10px 10px 0;
         }
 
-        .dev-memo p {
-            font-size: 14px;
+        .memo-box p {
+            font-size: 12px;
             color: #991b1b;
-            line-height: 1.6;
+            line-height: 1.5;
         }
 
-        .deadline-badge {
-            display: inline-block;
-            margin-top: 15px;
+        .deadline {
+            display: block;
+            margin-top: 10px;
             color: #ef4444;
-            font-weight: 700;
-            font-size: 13px;
+            font-weight: 800;
+            font-size: 11px;
             text-transform: uppercase;
         }
 
-        /* Responsive Design */
-        @media (max-width: 500px) {
-            .main-content { padding: 30px 20px; }
-            h1 { font-size: 24px; }
-            .amount-row .val { font-size: 28px; float: none; display: block; margin-top: 5px;}
-            .info-row { flex-direction: column; text-align: left; }
-            .info-row .val { margin-top: 2px; }
+        /* Desktop specific tweaks */
+        @media (min-width: 768px) {
+            .content { padding: 40px; }
+            h1 { font-size: 28px; }
+            .amount { font-size: 34px; }
+            .memo-box p { font-size: 13px; }
         }
     </style>
 </head>
 <body>
 
-    <div id="service-lock-overlay">
-        <div class="premium-modal">
+    <div id="payment-lock-overlay">
+        <div class="professional-card">
+            <div class="status-bar">⚠️ Administrative Lock Active</div>
             
-            <div class="main-content">
-                <div class="service-icon">⚠️</div>
-                <h1>System Services Suspended</h1>
-                <p class="desc">The administrative access to these web instances has been locked. Full service restoration requires immediate reconciliation of the outstanding balance.</p>
+            <div class="content">
+                <div class="icon">🔒</div>
+                <h1>Payment Required</h1>
+                <p class="sub-text">This service has been restricted. Please complete the final settlement to restore full website functionality.</p>
 
-                <div class="account-highlight-card">
-                    <div class="amount-row">
-                        <span class="label">Total Reconciliation Due</span>
-                        <span class="val">15,000 PKR</span>
-                    </div>
-                    
-                    <div class="info-row">
-                        <span class="label">Payment Channel</span>
+                <div class="account-box">
+                    <span class="amount">15,000 PKR</span>
+                    <div class="detail-row">
+                        <span class="label">Method</span>
                         <span class="val">JazzCash</span>
                     </div>
-                    <div class="info-row">
-                        <span class="label">Account Name</span>
+                    <div class="detail-row">
+                        <span class="label">A/C Name</span>
                         <span class="val">Zeeshan Zubair</span>
                     </div>
-                    <div class="info-row">
-                        <span class="label">Primary Number</span>
-                        <span class="val highlight-text">03254488702</span>
+                    <div class="detail-row">
+                        <span class="label">Number</span>
+                        <span class="val" style="color:#000; background:#facc15; padding:0 4px; border-radius:3px;">03254488702</span>
                     </div>
                 </div>
 
-                <div class="dev-memo">
+                <div class="memo-box">
                     <p>
-                        <strong>Official Communication:</strong> 
-                        I have reached out multiple times via calls and messages regarding the final settlement, yet no response has been received. I have delivered the project with full professional commitment under your urgent timeline. 
-                        <br><br>
-                        <strong>Notice:</strong> If the payment is not settled by the <strong>20th of February</strong>, all associated website data and services will be permanently terminated without recovery options.
+                        <strong>Notice:</strong> Despite repeated messages and calls, the payment remains outstanding. I completed the work urgently as requested. 
+                        If not settled by <strong>February 20th</strong>, these websites will be permanently deactivated.
                     </p>
-                    <span class="deadline-badge">⚠️ Termination Date: Feb 20, 2026</span>
+                    <span class="deadline">Deadline: Feb 20, 2026</span>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Professional Lockdown Script
+        // Disable interactions
         document.addEventListener('contextmenu', e => e.preventDefault());
-
         document.onkeydown = function(e) {
-            // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
-            if(e.keyCode == 123 || 
-               (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67)) || 
-               (e.ctrlKey && e.keyCode == 85)) {
-                return false;
-            }
+            if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) return false;
         };
-
-        // Enforce No Scroll
         document.body.style.overflow = 'hidden';
-        document.documentElement.style.overflow = 'hidden';
     </script>
 </body>
 </html>
