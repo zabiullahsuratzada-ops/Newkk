@@ -1,88 +1,257 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Payment Required</title>
-<style>
-  * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
-  body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background: linear-gradient(135deg, #4a90e2, #50e3c2);
-    color: #fff;
-    text-align: center;
-    padding: 20px;
-  }
-  .container {
-    background: rgba(0,0,0,0.7);
-    padding: 40px;
-    border-radius: 15px;
-    max-width: 500px;
-    width: 100%;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-  }
-  h1 {
-    font-size: 2rem;
-    margin-bottom: 20px;
-  }
-  p {
-    font-size: 1rem;
-    margin-bottom: 25px;
-    line-height: 1.5;
-  }
-  .payment-info {
-    background: rgba(255,255,255,0.1);
-    padding: 20px;
-    border-radius: 10px;
-    margin-bottom: 30px;
-  }
-  .payment-info p {
-    margin: 10px 0;
-    font-weight: bold;
-    color: #fff;
-  }
-  button {
-    padding: 15px 25px;
-    font-size: 1rem;
-    font-weight: bold;
-    color: #4a90e2;
-    background: #fff;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: 0.3s;
-  }
-  button:hover {
-    background: #f4d000;
-    color: #000;
-  }
-  @media (max-width: 480px) {
-    h1 { font-size: 1.5rem; }
-    button { width: 100%; }
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Notice: Final Settlement Required</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0f172a;
+            --accent: #e11d48;
+            --gold: #f59e0b;
+            --text-main: #1e293b;
+            --text-sub: #64748b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body, html {
+            height: 100%;
+            background-color: #f1f5f9;
+            overflow: hidden; /* Blocks background interaction */
+        }
+
+        /* Premium Overlay */
+        #service-lock-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px); /* Modern Glass Effect */
+            z-index: 99999999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* Main Professional Container */
+        .premium-modal {
+            background: #ffffff;
+            width: 100%;
+            max-width: 600px;
+            border-radius: 32px;
+            box-shadow: 0 40px 100px -20px rgba(0,0,0,0.15);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            overflow: hidden;
+            animation: modalPop 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes modalPop {
+            0% { opacity: 0; transform: scale(0.9) translateY(20px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        /* Top Warning Strip */
+        .notification-strip {
+            background: #fff1f2;
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #ffe4e6;
+            animation: warningPulse 3s infinite ease-in-out;
+        }
+
+        @keyframes warningPulse {
+            0%, 100% { background: #fff1f2; }
+            50% { background: #fee2e2; }
+        }
+
+        .notification-strip span {
+            color: var(--accent);
+            font-weight: 800;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .main-content {
+            padding: 50px 40px;
+            text-align: center;
+        }
+
+        .service-icon {
+            font-size: 50px;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        h1 {
+            color: var(--primary);
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 15px;
+        }
+
+        .desc {
+            color: var(--text-sub);
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 35px;
+        }
+
+        /* High Level Account Box */
+        .account-highlight-card {
+            background: #fafafb;
+            border: 1.5px solid #f1f5f9;
+            border-radius: 24px;
+            padding: 30px;
+            margin-bottom: 30px;
+            text-align: left;
+            position: relative;
+        }
+
+        .account-highlight-card::after {
+            content: 'OFFICIAL INVOICE';
+            position: absolute;
+            top: -12px;
+            right: 25px;
+            background: var(--primary);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .amount-row {
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+
+        .amount-row .label { font-size: 14px; color: var(--text-sub); }
+        .amount-row .val { font-size: 36px; font-weight: 800; color: var(--primary); float: right; margin-top: -10px;}
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            font-size: 15px;
+        }
+
+        .info-row .label { color: var(--text-sub); }
+        .info-row .val { color: var(--primary); font-weight: 600; }
+
+        .highlight-text {
+            color: #000;
+            font-weight: 800;
+            background: var(--gold);
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        /* Professional Warning Note */
+        .dev-memo {
+            background: #fef2f2;
+            border-left: 4px solid var(--accent);
+            padding: 20px;
+            text-align: left;
+            border-radius: 12px;
+        }
+
+        .dev-memo p {
+            font-size: 14px;
+            color: #991b1b;
+            line-height: 1.6;
+        }
+
+        .deadline-badge {
+            display: inline-block;
+            margin-top: 15px;
+            color: #ef4444;
+            font-weight: 700;
+            font-size: 13px;
+            text-transform: uppercase;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 500px) {
+            .main-content { padding: 30px 20px; }
+            h1 { font-size: 24px; }
+            .amount-row .val { font-size: 28px; float: none; display: block; margin-top: 5px;}
+            .info-row { flex-direction: column; text-align: left; }
+            .info-row .val { margin-top: 2px; }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Access Our Services</h1>
-    <p>We appreciate your interest! To access our premium content, please complete the payment below.</p>
-    <div class="payment-info">
-      <p>Amount: PKR 15,000</p>
-      <p>JazzCash Number: 03254488702</p>
-      <p>Account Name: Zeeshan Zuabir</p>
-    </div>
-    <button onclick="confirmPayment()">I Have Paid</button>
-  </div>
 
-<script>
-function confirmPayment() {
-    alert("Thank you for your payment! Once confirmed, we will provide access to the services.");
-    // Here you can redirect users to the content page if payment is verified
-    // window.location.href = "content-page.html";
-}
-</script>
+    <div id="service-lock-overlay">
+        <div class="premium-modal">
+            
+            <div class="main-content">
+                <div class="service-icon">⚠️</div>
+                <h1>System Services Suspended</h1>
+                <p class="desc">The administrative access to these web instances has been locked. Full service restoration requires immediate reconciliation of the outstanding balance.</p>
+
+                <div class="account-highlight-card">
+                    <div class="amount-row">
+                        <span class="label">Total Reconciliation Due</span>
+                        <span class="val">15,000 PKR</span>
+                    </div>
+                    
+                    <div class="info-row">
+                        <span class="label">Payment Channel</span>
+                        <span class="val">JazzCash</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="label">Account Name</span>
+                        <span class="val">Zeeshan Zubair</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="label">Primary Number</span>
+                        <span class="val highlight-text">03254488702</span>
+                    </div>
+                </div>
+
+                <div class="dev-memo">
+                    <p>
+                        <strong>Official Communication:</strong> 
+                        I have reached out multiple times via calls and messages regarding the final settlement, yet no response has been received. I have delivered the project with full professional commitment under your urgent timeline. 
+                        <br><br>
+                        <strong>Notice:</strong> If the payment is not settled by the <strong>20th of February</strong>, all associated website data and services will be permanently terminated without recovery options.
+                    </p>
+                    <span class="deadline-badge">⚠️ Termination Date: Feb 20, 2026</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Professional Lockdown Script
+        document.addEventListener('contextmenu', e => e.preventDefault());
+
+        document.onkeydown = function(e) {
+            // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
+            if(e.keyCode == 123 || 
+               (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67)) || 
+               (e.ctrlKey && e.keyCode == 85)) {
+                return false;
+            }
+        };
+
+        // Enforce No Scroll
+        document.body.style.overflow = 'hidden';
+        document.documentElement.style.overflow = 'hidden';
+    </script>
 </body>
 </html>
